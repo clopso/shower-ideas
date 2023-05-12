@@ -1,24 +1,24 @@
-# F22 RC Airplane
+# ✈️ F22 RC Airplane
 
-> This project was inspired by these two projects [Cardboard RC Airplane - F22 Raptor](https://youtu.be/WKkWElvF-a0) and [Simple RC Airplane](https://www.youtube.com/watch?v=9SMyBN-B3Vo&ab_channel=KendinYap)
+> This project was inspired by these two projects: [Cardboard RC Airplane - F22 Raptor](https://youtu.be/WKkWElvF-a0) and [Simple RC Airplane](https://www.youtube.com/watch?v=9SMyBN-B3Vo&ab_channel=KendinYap).
 
 ## Table of contents
 
-- [F22 RC Airplane](#f22-rc-airplane)
-  - [Table of contents](#table-of-contents)
   - [Idea](#idea)
   - [Materials](#materials)
+	  - [Airplane](#airplane)
+	  - [Controller](#controller)
   - [Images](#images)
   - [Code](#code)
 
 ## Idea
 
-Make a remote control cardboard airplane with ESP32 and NRF24L01
+Make a remote control cardboard airplane with ESP32 and NRF24L01.
 
 ## Materials
 
+### Airplane
 ```text
-Airplane:
     1x ESP32
     1x ESC
     2x 9gr Micro servos
@@ -28,8 +28,8 @@ Airplane:
     1x NRF24L01
 ```
 
+### Controller
 ```text
-Controller:
     1x ESP32
     1x NRF24L01
     1x 100uF Capacitor
@@ -43,4 +43,4 @@ Controller:
 ## Code
 
 The code was created using the Arduino IDE.  
-The plane and control file is in this [folder](./codes/)
+The airplane and control file is in this [folder](./codes/)
