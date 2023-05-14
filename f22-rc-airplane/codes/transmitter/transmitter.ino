@@ -60,8 +60,14 @@ void setup() {
 
   pinMode(LED_PIN, OUTPUT);
 
-  radio.begin();
+  if (!radio.begin()) {
+    Serial.println(F("radio hardware is not responding!!"));
+    while (1) {}  // hold in infinite loop
+  }
+  radio.setPALevel(RF24_PA_LOW);
+  radio.setPayloadSize(sizeof(data));
   radio.openWritingPipe(address);
+  radio.stopListening();
 }
 
 void loop() {
@@ -74,7 +80,7 @@ void loop() {
   // Map the joystick values to a range of -100 to 100 for easier use
   int xMapped = mapJoystickValues(xValue);
   int yMapped = mapJoystickValues(yValue);
-  int motorMapped = map(motorValue, 1750, 4095, 0, 180);
+  int motorMapped = map(motorValue, 1800, 4095, 0, 180);
 
   if(motorMapped <= 0){
     motorMapped = 0;
@@ -92,19 +98,23 @@ void loop() {
   Serial.print(", Motor: ");
   Serial.println(motorMapped);
 
-  radio.write(&data, sizeof(MyData));
+  bool report = radio.write(&data, sizeof(data));
 
-  switch(led_blink){
-    case 0:
-      digitalWrite(LED_PIN, HIGH);
-      led_blink = 1;
-      break;
-    case 1:
-      digitalWrite(LED_PIN, LOW);
-      led_blink = 0;
-      break;
-  }
+    if (report) {
+        switch(led_blink){
+          case 0:
+            digitalWrite(LED_PIN, HIGH);
+            led_blink = 1;
+            break;
+          case 1:
+            digitalWrite(LED_PIN, LOW);
+            led_blink = 0;
+            break;
+        }
+    } else {
+      Serial.println(F("Transmission failed or timed out"));  // payload was not delivered
+    }
 
   // Wait for a short time before reading again
-  delay(100);
+  delay(500);
 }
